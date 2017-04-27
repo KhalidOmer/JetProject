@@ -7,14 +7,14 @@ import datetime
 import time
 import csv
 
-
+debug = False
 ###################################################################################################################################################
 
 def Z():
     while True:
         x = np.random.uniform(0,1)
-        y = np.random.uniform(0,10000)
-        f = 1/(x+0.0001)
+        y = np.random.uniform(0,1000)
+        f = 1/(x+0.001)
         if y <= f:  
             return x
 
@@ -38,12 +38,12 @@ def phi():
 
 ###################################################################################################################################################
 #the function normv retruns the axis of the rotation; the vector u and the function input"vector" form a plane, from which find a vector which is orthogonal to the plane. 
-def normv(v):
-    u = np.array([1,1,1])
+def normv(u):
+    v = np.array([1,1,1])
     x = u[1]*v[2] - u[2]*v[1]
     y = u[2]*v[0] - u[0]*v[2]
     z = u[0]*v[1] - u[1]*v[0]
-    normv = np.array([x,y,z])/norm(np.array([x,y,z,0]))
+    normv = np.array([x,y,z])/norm(np.array([x,y,z]))
     return normv 
 
 ###################################################################################################################################################
@@ -67,19 +67,20 @@ def rotation(v,angl):
 def parton3d():
     E = 1
     i = 0
+    g = []
     P_i = np.array([E,E,0,0])
     xb = np.array([0,0,0])
     xf = np.array([1,0,0])
     l = [(P_i,xb,xf)]
     while i < len(l):
         P, xb, xf = l[i]
-        if P[0] > 0.09:
+        if P[0] > 0.05:
             z = Z()
             ang1 = theta()
             ang2 = phi()
             n = normv(P[1:])
             rot1 = rotation(n,ang1)
-            rot2 = rotation(P[1:],phi())
+            rot2 = rotation(P[1:]/norm(P[1:]),ang2)
             tmp = np.dot(rot2,np.dot(rot1,P[1:]))
             a = np.array([P[0]])
             P_r = z*np.concatenate((a,tmp))
@@ -90,6 +91,9 @@ def parton3d():
             xfp = xf + P_part[1:]/norm(P_part[1:])
             l.append((P_r,xbr,xfr))
             l.append((P_part,xbp,xfp))
+            g.append((P_r[0],norm(P_r[1:])))
+            if debug:
+                print(g) #g is a list of tuples to compare E and the momentum of the radiated particle 
         i +=1
     d = []
     for i in l:
@@ -121,18 +125,17 @@ with open(f, 'r') as csv_file:
             if l[0] >=.8:
                 color = 'blue'
             if l[0] >.5 and l[0] < .8:
-                color = 'yellow'
+                color = 'green'
             if l[0] < .5:
-                color = 'magenta'
+                color = 'yellow'
             if l[0] <= .1:
                 color = 'red'
-            ax.plot([x1,x2],[y1,y2],[z1,z2], color=color)       
+            ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= l[0])       
 a = []
 b = []
 plt.plot(a,b, label = 'E < 0.1', color = 'red')
 plt.plot(a,b, label = 'E >= 0.8', color = 'blue')
-plt.plot(a,b, label = 'E > 0.5', color = 'yellow')
-plt.plot(a,b, label = 'E < 0.5', color = 'magenta')
+plt.plot(a,b, label = 'E > 0.5', color = 'green')
+plt.plot(a,b, label = 'E < 0.5', color = 'yellow')
 plt.legend(loc = 2)
 plt.show()
-
