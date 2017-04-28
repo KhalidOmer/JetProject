@@ -23,10 +23,11 @@ def Z():
 ###################################################################################################################################################
 
 def theta():
+    eps = 0.01
     while True:
         x = np.random.uniform(0,np.pi*.5)
-        y = np.random.uniform(0,100)
-        f = 1/(0.01+x)
+        y = np.random.uniform(0,1/eps)
+        f = 1/(eps+x)
         if y <= f:
             return x
 
@@ -83,7 +84,7 @@ def parton3d():
             n = normv(P[1:])
             rot1 = rotation(n,ang1)
             rot2 = rotation(P[1:]/norm(P[1:]),ang2)
-            tmp = np.dot(rot2,np.dot(rot1,P[1:]))
+            tmp = np.dot(rot2,np.dot(rot1,P[1:]))/norm(np.dot(rot2,np.dot(rot1,P[1:],ang2))
             a = np.array([P[0]])
             P_r = z*np.concatenate((a,tmp))
             P_part = P - P_r 
