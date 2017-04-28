@@ -11,10 +11,11 @@ debug = False
 ###################################################################################################################################################
 
 def Z():
+    eps = 0.01
     while True:
         x = np.random.uniform(0,1)
-        y = np.random.uniform(0,1000)
-        f = 1/(x+0.001)
+        y = np.random.uniform(0,1/eps)
+        f = 1/(x+eps)
         if y <= f:  
             return x
 
@@ -24,8 +25,8 @@ def Z():
 def theta():
     while True:
         x = np.random.uniform(0,np.pi*.5)
-        y = np.random.uniform(0,10000)
-        f = 1/(0.0001+x)
+        y = np.random.uniform(0,100)
+        f = 1/(0.01+x)
         if y <= f:
             return x
 
@@ -50,15 +51,16 @@ def normv(u):
 #This function returns the rotation matrix; angl here is the angle of rotation, v is the axis of the rotation 
 #check wikipedia "https://en.wikipedia.org/wiki/Rotation_matrix"
 def rotation(v,angl):
-    r = np.array([np.cos(angl) + v[0]**2*(1-np.cos(angl)), 
-    v[0]*v[1]*(1-np.cos(angl))- v[2]*np.sin(angl), 
-    v[0]*v[2]*(1-np.cos(angl))+ v[1]*np.sin(angl),
-                v[1]*v[0]*(1-np.cos(angl))+v[2]*np.sin(angl),
-                 np.cos(angl)+v[1]**2*(1-np.cos(angl)), 
-                 v[1]*v[2]*(1-np.cos(angl))-v[0]*np.sin(angl),
-                 v[2]*v[0]*(1-np.cos(angl))-v[1]*np.sin(angl),
-                 v[2]*v[1]*(1-np.cos(angl))+v[0]*np.sin(angl),
-                  np.cos(angl)+ v[2]**2*(1-np.cos(angl))])
+    r = np.array([
+        np.cos(angl) + v[0]**2*(1-np.cos(angl)), 
+        v[0]*v[1]*(1-np.cos(angl))- v[2]*np.sin(angl), 
+        v[0]*v[2]*(1-np.cos(angl))+ v[1]*np.sin(angl),
+        v[1]*v[0]*(1-np.cos(angl))+v[2]*np.sin(angl),
+        np.cos(angl)+v[1]**2*(1-np.cos(angl)), 
+        v[1]*v[2]*(1-np.cos(angl))-v[0]*np.sin(angl),
+        v[2]*v[0]*(1-np.cos(angl))-v[1]*np.sin(angl),
+        v[2]*v[1]*(1-np.cos(angl))+v[0]*np.sin(angl),
+        np.cos(angl)+ v[2]**2*(1-np.cos(angl))])
     return r.reshape(3,3)
 
 ###################################################################################################################################################
@@ -130,12 +132,12 @@ with open(f, 'r') as csv_file:
                 color = 'yellow'
             if l[0] <= .1:
                 color = 'red'
-            ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= l[0])       
+            ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= 5*l[0])       
 a = []
 b = []
-plt.plot(a,b, label = 'E < 0.1', color = 'red')
 plt.plot(a,b, label = 'E >= 0.8', color = 'blue')
 plt.plot(a,b, label = 'E > 0.5', color = 'green')
 plt.plot(a,b, label = 'E < 0.5', color = 'yellow')
+plt.plot(a,b, label = 'E < 0.1', color = 'red')
 plt.legend(loc = 2)
 plt.show()
