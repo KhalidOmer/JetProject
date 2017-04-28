@@ -85,7 +85,7 @@ def parton3d():
             rot1 = rotation(n,ang1)
             rot2 = rotation(P[1:]/norm(P[1:]),ang2)
             tmp = np.dot(rot2,np.dot(rot1,P[1:]))
-            tmp = P[0]*tmp/norm(tmp)
+            tmp = E*tmp/norm(tmp)
             a = np.array([P[0]])
             P_r = z*np.concatenate((a,tmp))
             P_part = P - P_r 
