@@ -113,7 +113,7 @@ def parton3d(E):
         d.append(list(i[0])+list(i[1])+list(i[2]))
     return Hadron
 ########################################################
-partons concatenates two parton showers
+#partons concatenates two parton showers
 def partons(E):
     J1 = parton3d(E)
     J2 = parton3d(-E)
@@ -146,7 +146,13 @@ def dij(Ji,Jj,p, R):
             print("nan", Pi, Pj)
     return di_j 
 ###########################################################
-def combine(J1, J2,p,R):
+def diB(Ji, p):
+    Pi = Ji.momentum
+    pTi = np.sqrt(Pi[1]**2 + Pi[2]**2)
+    di_B = pTi**(2*p)
+    return di_B
+###########################################################
+def combine(J1, J2,p,R,H,lis):
     J = J1.momentum + J2.momentum
     J1.exists = False
     J2.exists = False
@@ -158,7 +164,7 @@ def combine(J1, J2,p,R):
             di_j = dij(J,lis[i],p,R)
             heapq.heappush(H,(di_j,J.index,i))
 ###########################################################
-J = partons(E())
+
 def jetcluster(p,R,J):
     for j in J:
         Pseudojet(j)
@@ -173,7 +179,7 @@ def jetcluster(p,R,J):
     d, i, j = heapq.heappop(H)
     if j != -1:
         if lis[i].exists and lis[j].exists:
-            combine(lis[i],lis[j],p,R)
+            combine(lis[i],lis[j],p,R,H,lis)
     else:
         if lis[i].exists:
             lis[i].exists = False
@@ -182,7 +188,7 @@ def jetcluster(p,R,J):
         d, i, j = heapq.heappop(H)
         if j != -1:
             if lis[i].exists and lis[j].exists:
-                combine(lis[i],lis[j],p,R)
+                combine(lis[i],lis[j],p,R,H,lis)
         else:
             if lis[i].exists:
                 lis[i].exists = False
@@ -191,4 +197,11 @@ def jetcluster(p,R,J):
     for j in Pseudojet.instances:
         if j.is_jet:
             a+=1
-    return a
+    print(a)
+if __name__ == "__main__":
+	p = -1
+	R = 1
+	J = partons(E())  
+	jetcluster(p,R,J)
+
+
