@@ -70,7 +70,6 @@ def rotation(v,angl):
 def parton3d():
     E = 1
     i = 0
-    g = []
     P_i = np.array([E,E,0,0])
     xb = np.array([0,0,0])
     xf = np.array([1,0,0])
@@ -95,9 +94,9 @@ def parton3d():
             xfp = xf + P_part[1:]/norm(P_part[1:])
             l.append((P_r,xbr,xfr))
             l.append((P_part,xbp,xfp))
-            g.append((P_r[0],norm(P_r[1:])))
             if debug:
-                print(g) #g is a list of tuples to compare E and the momentum of the radiated particle 
+                print('P_r: ', P_r[0],norm(P_r[1:]))
+                print('P_part:', P_part[0], norm(P_part[1:])) 
         i +=1
     d = []
     for i in l:
