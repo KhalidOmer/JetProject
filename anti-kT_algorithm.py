@@ -166,6 +166,7 @@ def combine(J1, J2,p,R,H,lis):
 ###########################################################
 
 def jetcluster(p,R,J):
+    Pseudojet.instances = []
     for j in J:
         Pseudojet(j)
     lis = Pseudojet.instances
@@ -197,11 +198,29 @@ def jetcluster(p,R,J):
     for j in Pseudojet.instances:
         if j.is_jet:
             a+=1
-    print(a)
+    return a
 if __name__ == "__main__":
-	p = -1
-	R = 1
-	J = partons(E())  
-	jetcluster(p,R,J)
+	l = []
+	for i in range(100): 
+    		s = partons(E())
+    		l.append(jetcluster(-1,1,s))
+    		
+	plt.hist(l,bins = 50)
+	plt.title("p=-1,R=1")
+	plt.show()
+
+	l = []
+	for i in range(100): 
+    		s = partons(E())
+    		l.append(jetcluster(-1,0.01,s))
+    		
+	plt.hist(l,bins = 50)
+	plt.title("p=-1,R=.01")
+	plt.show()
 
 
+
+
+
+
+   
