@@ -18,3 +18,5 @@
 # The file "partonshower3d.py" has a code for simulating a 3D parton shower
 ## We excepecting to see a 3D plot of a parton shower and a csv file contains the data with the name "parton.csv"
 ### to run the code go to clone or download and the type this on your terminal window "python3 'file_name.py'" without the quotation marks".
+
+# The three files, anti-kT_algorithm.py, anti-kT_algorithm1.py and anti-kT_algorithm.pdf are related to anti kT algorithm, where the first and the second contains a code for the algorithm and the last one explains the algorithm in details. The second file runs the algorithm for different values of "R" and make a histogram to compare the number of Jets for each r and often the number appears. 
