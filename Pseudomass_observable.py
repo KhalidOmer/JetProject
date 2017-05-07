@@ -1,15 +1,19 @@
 import heapq
+from Distributions import*
+from pseudo_jets_generator import*
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from numpy.linalg import norm
-import datetime
-import time
-import csv
+
+debug = False
 
 
-#######
-
+"""The Pseudomass observable is well defined only when the number of constituents in \
+our targeted jet is greater than 1, as to fix this the energy component will be returned 
+if thats the case."""
+ 
+ 
 def dij(Ji,Jj,p, R):
     Pi = Ji.momentum
     Pj = Jj.momentum
@@ -29,18 +33,18 @@ def dij(Ji,Jj,p, R):
     return di_j 
 
 
-#####
+##########
 
 def Delta(x,y):
     phii = np.arctan(x[2]/x[1])
     phij = np.arctan(y[2]/y[1])
     yi = 1/2 * np.log((norm(x[1:])+x[3])/(norm(x[1:])-x[3]))
     yj = (1/2) * np.log((norm(y[1:]) + y[3])/(norm(y[1:])-y[3]))
-    Delij = np.sqrt((yi - yj)**2 + (phii - phij)**2) 
+    Delij = np.sqrt((yi - yj)**2 + (phii - phij)**2)
     return Delij
 
 
-#####
+###########
 
 def diB(Ji, p):
     Pi = Ji.momentum
@@ -49,7 +53,7 @@ def diB(Ji, p):
     return di_B
 
 
-#####
+###########
 
 class Pseudojet:
     instances  = []
@@ -60,8 +64,16 @@ class Pseudojet:
         self.exists = True 
         self.list = lista
         Pseudojet.instances.append(self)
+    def pseudomass(self):
+        L = sorted(self.list, key = lambda x: -np.sqrt(x[1]**2+x[2]**2))
+        if len(L) == 1:
+        	return L[0][0]
+        else :
+        	pseudomass = L[0][0] * L[1][0] * Delta(L[0],L[1]) 
+        return pseudomass
 
-######
+
+############
 
 def combine(J1, J2,p,R,H,lis):
     J = J1.momentum + J2.momentum
@@ -76,7 +88,7 @@ def combine(J1, J2,p,R,H,lis):
             heapq.heappush(H,(di_j,J.index,i))
 
 
-######
+#############
 
 def jetcluster(p,R,J):
     Pseudojet.instances = []
@@ -90,14 +102,6 @@ def jetcluster(p,R,J):
         for j in range(i+1, len(lis)):
             di_j = dij(lis[i],lis[j],p,R)
             heapq.heappush(H,(di_j,i,j))
-    d, i, j = heapq.heappop(H)
-    if j != -1:
-        if lis[i].exists and lis[j].exists:
-            combine(lis[i],lis[j],p,R,H,lis)
-    else:
-        if lis[i].exists:
-            lis[i].exists = False
-            lis[i].is_jet = True 
     while len(H) !=0:
         d, i, j = heapq.heappop(H)
         if j != -1:
@@ -110,37 +114,48 @@ def jetcluster(p,R,J):
     return [j for j in Pseudojet.instances if j.is_jet]
 
 
-#######
+##############
 l =[]
 for i in range(100):
-	thet = np.random.uniform(0,np.pi)
-	ph = np.random.uniform (0,np.pi*2)
-	En  = E()
-	P_i = np.array([En,En,0,0])
-	J = partons(P_i)
-	l.append(J)
-	
-n =[]	
-for num, i in enumerate(l):	
-	Jets = jetcluster(-1,1,i)
-	n.append(len(Jets))
-	#print(num, 'loop 1')
+    #thet = np.random.uniform(0,np.pi)
+    #ph = np.random.uniform (0,np.pi*2)
+    En  = E()
+    P_i = np.array([En,En,0,0])
+    J = partons(P_i)
+    l.append(J)
+    
+m =[]   
+for num, i in enumerate(l):   
+    Jets = jetcluster(-1,1,i)
+    Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
+    #now i call that method pseudomass on the sorted jets
+    m.append(Sorted_jets[0].pseudomass())
+    print(num, 'loop 1')
 
+###############
 
-k=[]
-for num, i in enumerate(l):
-	Jets = jetcluster(-1,.1,i)
-	k.append(len(Jets))
-	#print(num, 'loop 2')
-	
-m = []
-for num, i in enumerate(l):
-	Jets = jetcluster(-1,.05,i)
-	m.append(len(Jets))
-	#print(num, 'loop 3')
+n =[]   
+for num,i  in enumerate(l):   
+    Jets = jetcluster(-1,0.1,i)
+    Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
+    # now i call that method pseudomass on the sorted jets
+    n.append(Sorted_jets[0].pseudomass())
+    print(num, 'loop 2')
+
+################
+
+k =[]   
+for num,i in enumerate(l):   
+    Jets = jetcluster(-1,.05,i)
+    Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
+    # now i call that method pseudomass on the sorted jets
+    k.append(Sorted_jets[0].pseudomass())
+    print(num, "loop 3")
+
+#################
 plt.hist([n, k, m], bins=30, histtype='barstacked', color=['blue', 'yellow', 'red'], label=['R=1', 'R=.1', 'R=.05'])
-plt.xlabel('Number of Jets')
+plt.xlabel('Pseudomass')
 plt.ylabel('Frequency')
 plt.legend(loc='upper right')
 plt.show()
-#######
+################################

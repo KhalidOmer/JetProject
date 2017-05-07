@@ -3,40 +3,12 @@ import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from numpy.linalg import norm
+from Distributions import*
 import datetime
 import time
 import csv
 
 debug = True
-###################################################################################################################################################
-
-def Z():
-    eps = 0.01
-    while True:
-        x = np.random.uniform(0,1)
-        y = np.random.uniform(0,1/eps)
-        f = 1/(x+eps)
-        if y <= f:  
-            return x
-
-
-###################################################################################################################################################
-
-def theta():
-    eps = 0.01
-    while True:
-        x = np.random.uniform(0,np.pi*.5)
-        y = np.random.uniform(0,1/eps)
-        f = 1/(eps+x)
-        if y <= f:
-            return x
-
-
-##################################################################################################################################################
-#the azimuthal angle 
-def phi():
-    x = np.random.uniform(0,2*np.pi)
-    return x
 
 ###################################################################################################################################################
 #the function normv retruns the axis of the rotation; the vector u and the function input"vector" form a plane, from which find a vector which is orthogonal to the plane. 
