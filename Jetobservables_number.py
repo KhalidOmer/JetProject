@@ -250,25 +250,29 @@ for i in range(100):
 	l.append(J)
 	
 n =[]	
-for i in l:	
+for num, i in enumerate(l):	
 	Jets = jetcluster(-1,1,i)
 	n.append(len(Jets))
+	print(num, 'loop 1')
 
 
 k=[]
-for i in l:
+for num, i in enumerate(l):
 	Jets = jetcluster(-1,.1,i)
 	k.append(len(Jets))
+	print(num, 'loop 2')
 	
 m = []
-for i in l:
+for num, i in enumerate(l):
 	Jets = jetcluster(-1,.05,i)
 	m.append(len(Jets))
+	print(num, 'loop 3')
 	
 	
-plt.hist(n, bins=30, alpha=0.5, label='R=1',color='blue')
-plt.hist(k, bins=30, alpha=0.5, label ='R=.01',color='yellow')
-plt.hist(m, bins=30, alpha=0.5, label='R=.05',color='red')
+#plt.hist(n, bins=30, alpha=0.5, label='R=1',color='blue')
+#plt.hist(k, bins=30, alpha=0.5, label ='R=.1',color='yellow')
+#plt.hist(m, bins=30, alpha=0.5, label='R=.05',color='red')
+plt.hist([n, k, m], bins=30, histtype='barstacked', color=['blue', 'yellow', 'red'], label=['R=1', 'R=.1', 'R=.05'])
 plt.xlabel('Number of Jets')
 plt.ylabel('Frequency')
 plt.legend(loc='upper right')
