@@ -130,7 +130,7 @@ for num, i in enumerate(l):
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     #now i call that method pseudomass on the sorted jets
     m.append(Sorted_jets[0].pseudomass())
-    print(num, 'loop 1')
+    #print(num, 'loop 1')
 
 ###############
 
@@ -140,7 +140,7 @@ for num,i  in enumerate(l):
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     # now i call that method pseudomass on the sorted jets
     n.append(Sorted_jets[0].pseudomass())
-    print(num, 'loop 2')
+    #print(num, 'loop 2')
 
 ################
 
@@ -150,7 +150,7 @@ for num,i in enumerate(l):
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     # now i call that method pseudomass on the sorted jets
     k.append(Sorted_jets[0].pseudomass())
-    print(num, "loop 3")
+    #print(num, "loop 3")
 
 #################
 plt.hist([n, k, m], bins=30, histtype='barstacked', color=['blue', 'yellow', 'red'], label=['R=1', 'R=.1', 'R=.05'])
