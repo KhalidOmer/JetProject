@@ -22,24 +22,11 @@ for i in range(1000):
 mu = np.mean(l2)
 sigma = np.std(l2)
 
-plt.hist(l2, bins=200)
+plt.hist(l2, bins=200, color = 'm', alpha = .5, label = '1000 samples')
 plt.title("pi calculation")
-plt.xlabel("Value")
+plt.xlabel("The approximate value of pi")
 plt.ylabel("Frequency")
-plt.show()
-
-# the uncertainity in the calculation
-
-l3 = []
-sigma = []
-ji = []
-for j in range(100,1000,100):
-    for i in range(j):
-        l3.append(pi())
-    sig = np.std(l3)
-    ji.append(j)
-    sigma.append(sig)
-plt.plot(ji,sigma, 'b')
+plt.legend()
 plt.show()
 
 

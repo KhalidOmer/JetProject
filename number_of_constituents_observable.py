@@ -72,6 +72,10 @@ class Pseudojet:
         else :
         	pseudomass = L[0][0] * L[1][0] * Delta(L[0],L[1]) 
         return pseudomass
+    def counter(self):
+    	num = len(self.list)
+    	return num    
+
 ############
 
 def combine(J1, J2,p,R,H,lis):
@@ -128,7 +132,7 @@ for num, i in enumerate(l):
     Jets = jetcluster(-1,1,i)
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     #now i call that method pseudomass on the sorted jets
-    m.append(Sorted_jets[0].pseudomass())
+    m.append(Sorted_jets[0].counter())
     print(num, 'loop 1')
 
 ###############
@@ -138,7 +142,7 @@ for num,i  in enumerate(l):
     Jets = jetcluster(-1,0.1,i)
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     # now i call that method pseudomass on the sorted jets
-    n.append(Sorted_jets[0].pseudomass())
+    n.append(Sorted_jets[0].counter())
     print(num, 'loop 2')
 
 ################
@@ -148,11 +152,12 @@ for num,i in enumerate(l):
     Jets = jetcluster(-1,.05,i)
     Sorted_jets = sorted(Jets, key = lambda x : - x.momentum[0])
     # now i call that method pseudomass on the sorted jets
-    k.append(Sorted_jets[0].pseudomass())
+    k.append(Sorted_jets[0].counter())
     print(num, "loop 3")
 
 
-with open('data.pickle', 'wb') as f:
+
+with open('data1.pickle', 'wb') as f:
 	pickle.dump(n, f)
 	pickle.dump(k, f)
 	pickle.dump(m, f)

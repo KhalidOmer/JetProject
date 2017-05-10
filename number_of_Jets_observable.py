@@ -1,4 +1,5 @@
 import heapq
+import pickle
 import numpy as np
 import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
@@ -122,23 +123,32 @@ n =[]
 for num, i in enumerate(l):	
 	Jets = jetcluster(-1,1,i)
 	n.append(len(Jets))
-	#print(num, 'loop 1')
+	print(num, 'loop 1')
 
 
 k=[]
 for num, i in enumerate(l):
 	Jets = jetcluster(-1,.1,i)
 	k.append(len(Jets))
-	#print(num, 'loop 2')
+	print(num, 'loop 2')
 	
 m = []
 for num, i in enumerate(l):
 	Jets = jetcluster(-1,.05,i)
 	m.append(len(Jets))
-	#print(num, 'loop 3')
-plt.hist([n, k, m], bins=30, histtype='barstacked', color=['blue', 'yellow', 'red'], label=['R=1', 'R=.1', 'R=.05'])
-plt.xlabel('Number of Jets')
-plt.ylabel('Frequency')
-plt.legend(loc='upper right')
-plt.show()
+	print(num, 'loop 3')
+	
+with open('data2.pickle', 'wb') as f:
+	pickle.dump(n, f)
+	pickle.dump(k, f)
+	pickle.dump(m, f)
+
+
+
+
+#plt.hist([n, k, m], bins=30, histtype='barstacked', edgecolor=['blue', 'yellow', 'red'], label=['R=1', 'R=.1', 'R=.05'], fill = False)
+#plt.xlabel('Number of Jets')
+#plt.ylabel('Frequency')
+#plt.legend(loc='upper right')
+#plt.show()
 #######
