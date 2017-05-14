@@ -21,13 +21,14 @@ L = []
 stand = []
 num = []
 for i in range(1000):
+	print(i)
 	for j in range(i):
 		L.append(theta())
-		stand.append(np.std(L))
-		num.append(i)
-		print(i)
-plt.plot(i, stand, color ='b')
+	stand.append(np.std(L))
+	num.append(i)
+
+plt.plot(num, stand, color ='b')
 plt.xlabel('Number of samples')
 plt.ylabel('The error in the calculation')
-plt.title('The Error Calculation')
+plt.title('The Error in the Calculation')
 plt.show()
