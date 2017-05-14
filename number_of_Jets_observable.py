@@ -111,7 +111,7 @@ def jetcluster(p,R,J):
 
 #######
 l =[]
-for i in range(100):
+for i in range(1000):
 	thet = np.random.uniform(0,np.pi)
 	ph = np.random.uniform (0,np.pi*2)
 	En  = E()

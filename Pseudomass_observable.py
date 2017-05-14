@@ -70,8 +70,7 @@ class Pseudojet:
         if len(L) == 1:
         	pass
         else :
-        	pseudomass = L[0][0] * L[1][0] * Delta(L[0],L[1]) 
-        return pseudomass
+        	return L[0][0] * L[1][0] * Delta(L[0],L[1]) 
 ############
 
 def combine(J1, J2,p,R,H,lis):
@@ -115,7 +114,7 @@ def jetcluster(p,R,J):
 
 ##############
 l =[]
-for i in range(100):
+for i in range(10):
     #thet = np.random.uniform(0,np.pi)
     #ph = np.random.uniform (0,np.pi*2)
     En  = E()
@@ -152,7 +151,7 @@ for num,i in enumerate(l):
     print(num, "loop 3")
 
 
-with open('data.pickle', 'wb') as f:
+with open('data3.pickle', 'wb') as f:
 	pickle.dump(n, f)
 	pickle.dump(k, f)
 	pickle.dump(m, f)
