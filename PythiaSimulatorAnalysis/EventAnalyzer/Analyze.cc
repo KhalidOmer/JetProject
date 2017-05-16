@@ -189,23 +189,24 @@ int main(int argc, char* argv[]){
     //check to make sure there are jets in the event
     if(inclusive_jets_TruthRaw.size()==0)
       continue;
-    if (inclusive_jets_TruthRaw.size()>=1)  
-    double phi1 = inclusive_jets_TruthRaw.at(0).phi();
-    double phi2 = inclusive_jets_TruthRaw.at(1).phi();
-    double rap1 = inclusive_jets_TruthRaw.at(0).rap();
-    double rap2 = inclusive_jets_TruthRaw.at(1).rap();
-    //double phid = phi1 - phi2;
-    //double rapd = rap1 - rap2;
-    //double delta = sqrt(pow(phid, 2.0) + pow(rapd, 2.0));
-    //double computed_value = double inclusive_jets_TruthRaw.at(0)[0] * double inclusive_jets_TruthRaw.at(1)[0] * delta;
-    
+    if (inclusive_jets_TruthRaw.size()>1){
+	    double phi1 = inclusive_jets_TruthRaw.at(0).phi();
+	    double phi2 = inclusive_jets_TruthRaw.at(1).phi();
+	    double rap1 = inclusive_jets_TruthRaw.at(0).rap();
+	    double rap2 = inclusive_jets_TruthRaw.at(1).rap();
+	    double phid = phi1 - phi2;
+	    double rapd = rap1 - rap2;
+	    double delta = sqrt(phid*phid + rapd*rapd);
+	    double computed_value = inclusive_jets_TruthRaw.at(0).E() *  inclusive_jets_TruthRaw.at(1).E() * delta;
+	    j1_pm ->Fill(computed_value);  
+    }    
     if(inclusive_jets_TruthRaw.size()>=1){
       double tmp = inclusive_jets_TruthRaw.at(0).pt();
       j1_pt ->Fill(tmp);
       j1_eta->Fill(inclusive_jets_TruthRaw.at(0).eta());
       j1_phi->Fill(inclusive_jets_TruthRaw.at(0).phi());
       j1_m  ->Fill(inclusive_jets_TruthRaw.at(0).m());   
-      j1_pm ->fill(computed_value);    
+        
     }
     //////////////////////////////////////////////
     //Setup tools for substructure calculation
