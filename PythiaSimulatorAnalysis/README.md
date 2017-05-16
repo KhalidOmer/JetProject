@@ -50,7 +50,7 @@ EventAnalyzer
 ### How : 
 ```
 source compile.sh
-./NTupler 1 path/to/pythia\_ww.root output\_wz.root
+./path/to/pythia\_ww.root output\_wz.root
 ```
 
 #### What :
