@@ -35,7 +35,7 @@ int main(int argc, char* argv[]){
   string OutputFile = argv[2];
 
   //debug flag
-  bool debug=true;
+  bool debug=false;
 
   //dR truth matching
   double dR_match = 1.0;
@@ -71,7 +71,7 @@ int main(int argc, char* argv[]){
   j1_eta  = new TH1F("j1_eta","j1_eta",80,-4,4);
   j1_phi  = new TH1F("j1_phi","j1_phi",80,-4,4);
   j1_m    = new TH1F("j1_m","j1_m",1000,0,1000);
-  j1_pm   = new TH1F("j1_pm","j1_pm", 1000,0,1000);
+  j1_pm   = new TH1F("j1_pm","j1_pm", 1000,0,2e7);
 
   ////////////////////////////////
   //random number generator for pileup
@@ -189,6 +189,7 @@ int main(int argc, char* argv[]){
     //check to make sure there are jets in the event
     if(inclusive_jets_TruthRaw.size()==0)
       continue;
+    bool debug_pm = true;
     if (inclusive_jets_TruthRaw.size()>1){
 	    double phi1 = inclusive_jets_TruthRaw.at(0).phi();
 	    double phi2 = inclusive_jets_TruthRaw.at(1).phi();
@@ -198,6 +199,9 @@ int main(int argc, char* argv[]){
 	    double rapd = rap1 - rap2;
 	    double delta = sqrt(phid*phid + rapd*rapd);
 	    double computed_value = inclusive_jets_TruthRaw.at(0).E() *  inclusive_jets_TruthRaw.at(1).E() * delta;
+	    if (debug_pm) {
+	    	cout <<  computed_value << " PM\n";
+	    }
 	    j1_pm ->Fill(computed_value);  
     }    
     if(inclusive_jets_TruthRaw.size()>=1){
