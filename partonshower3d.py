@@ -80,37 +80,37 @@ def parton3d():
 # next we save the data in a csv file
 #after we read from the same file to plot a 3D parton shower
 
+if __name__ == "__main__":
+	d  = parton3d()
+	t =  time.strftime('%a_%H_%M')
+	f = "parton" + t +'.csv'
+	with open(f, "w") as csv_file:
+		writer = csv.writer(csv_file, delimiter=',')
+		for i in d:
+		    writer.writerow(i)
 
-d  = parton3d()
-t =  time.strftime('%a_%H_%M')
-f = "parton" + t +'.csv'
-with open(f, "w") as csv_file:
-        writer = csv.writer(csv_file, delimiter=',')
-        for i in d:
-            writer.writerow(i)
-
-fig = plt.figure()
-ax = fig.gca(projection ='3d')
-with open(f, 'r') as csv_file:
-    reader = csv.reader(csv_file, delimiter=',')
-    for row in reader:
-            l = list(map(float, row))
-            x1, y1, z1 = l[4:7]
-            x2, y2, z2 = l[7:]
-            if l[0] >=.8:
-                color = 'blue'
-            if l[0] >.5 and l[0] < .8:
-                color = 'green'
-            if l[0] < .5:
-                color = 'yellow'
-            if l[0] <= .1:
-                color = 'red'
-            ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= 5*l[0])       
-a = []
-b = []
-plt.plot(a,b, label = 'E >= 0.8', color = 'blue')
-plt.plot(a,b, label = 'E > 0.5', color = 'green')
-plt.plot(a,b, label = 'E < 0.5', color = 'yellow')
-plt.plot(a,b, label = 'E < 0.1', color = 'red')
-plt.legend(loc = 2)
-plt.show()
+	fig = plt.figure()
+	ax = fig.gca(projection ='3d')
+	with open(f, 'r') as csv_file:
+	    reader = csv.reader(csv_file, delimiter=',')
+	    for row in reader:
+		    l = list(map(float, row))
+		    x1, y1, z1 = l[4:7]
+		    x2, y2, z2 = l[7:]
+		    if l[0] >=.8:
+		        color = 'blue'
+		    if l[0] >.5 and l[0] < .8:
+		        color = 'green'
+		    if l[0] < .5:
+		        color = 'yellow'
+		    if l[0] <= .1:
+		        color = 'red'
+		    ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= 5*l[0])       
+	a = []
+	b = []
+	plt.plot(a,b, label = 'E >= 0.8', color = 'blue')
+	plt.plot(a,b, label = 'E > 0.5', color = 'green')
+	plt.plot(a,b, label = 'E < 0.5', color = 'yellow')
+	plt.plot(a,b, label = 'E < 0.1', color = 'red')
+	plt.legend(loc = 2)
+	plt.show()
