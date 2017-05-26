@@ -113,13 +113,21 @@ def jetcluster(p,R,J):
 
 
 ##############
+# creating a jetty event of two partons (J) opposite to each other, a parton is rotated with (thet) and (ph) angles  
 l =[]
-for i in range(10):
-    #thet = np.random.uniform(0,np.pi)
-    #ph = np.random.uniform (0,np.pi*2)
-    En  = E()
-    P_i = np.array([En,En,0,0])
-    J = partons(P_i)
+for i in range(1000):
+    thet = np.random.uniform(0,np.pi)
+    ph   = np.random.uniform (0,np.pi*2)
+    En   = E()
+    P    = np.array([En,0,0,En])
+    n    = normv(P[1:])
+    rot1 = rotation(n,thet)
+    rot2 = rotation(P[1:]/norm(P[1:]),ph)
+    tmp  = np.dot(rot2,np.dot(rot1,P[1:]))
+    tmp  = P[0]*tmp/norm(tmp)
+    a    = np.array([P[0]])
+    P_i  = np.concatenate((a,tmp))
+    J    = partons(P_i)
     l.append(J)
     
 m =[]   
