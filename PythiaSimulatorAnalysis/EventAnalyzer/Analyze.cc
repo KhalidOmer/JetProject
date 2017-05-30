@@ -71,8 +71,9 @@ int main(int argc, char* argv[]){
   j1_eta  = new TH1F("j1_eta","j1_eta",80,-4,4);
   j1_phi  = new TH1F("j1_phi","j1_phi",80,-4,4);
   j1_m    = new TH1F("j1_m","j1_m",1000,0,1000);
-  j1_pm   = new TH1F("j1_pm","j1_pm", 1000,0,2e7);
-
+  j1_pm     = new TH1F("j1_pm","j1_pm", 1000,0,2e7);
+  j1_nj     = new TH1F("j1_nj","j1_nj", 50,0,50);
+  j1_co     = new TH1F("j1_co", "j1_co", 200,0,200);
   ////////////////////////////////
   //random number generator for pileup
   ////////////////////////////////
@@ -190,7 +191,9 @@ int main(int argc, char* argv[]){
     if(inclusive_jets_TruthRaw.size()==0)
       continue;
     bool debug_pm = true;
+    //int n_exclusive_jets (const double & dcut) const;
     if (inclusive_jets_TruthRaw.size()>1){
+    	    // pseudomass
 	    double phi1 = inclusive_jets_TruthRaw.at(0).phi();
 	    double phi2 = inclusive_jets_TruthRaw.at(1).phi();
 	    double rap1 = inclusive_jets_TruthRaw.at(0).rap();
@@ -199,10 +202,18 @@ int main(int argc, char* argv[]){
 	    double rapd = rap1 - rap2;
 	    double delta = sqrt(phid*phid + rapd*rapd);
 	    double computed_value = inclusive_jets_TruthRaw.at(0).E() *  inclusive_jets_TruthRaw.at(1).E() * delta;
+	    j1_pm ->Fill(computed_value);
 	    if (debug_pm) {
 	    	cout <<  computed_value << " PM\n";
 	    }
-	    j1_pm ->Fill(computed_value);  
+
+	    // number of jets
+	    double num_jets = inclusive_jets_TruthRaw.size();
+	    j1_nj ->Fill(num_jets);
+
+            // number of constituents
+	    double num_con = inclusive_jets_TruthRaw.at(0).constituents().size();
+	    j1_co ->Fill(num_con);  
     }    
     if(inclusive_jets_TruthRaw.size()>=1){
       double tmp = inclusive_jets_TruthRaw.at(0).pt();
@@ -271,6 +282,8 @@ int main(int argc, char* argv[]){
   j1_phi->Write();
   j1_m  ->Write();
   j1_pm ->Write();
+  j1_nj ->Write();
+  j1_co ->Write();
   fileout->Close();
 
   return 0;

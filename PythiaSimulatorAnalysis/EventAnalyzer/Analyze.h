@@ -77,6 +77,8 @@ TH1F *j1_eta;
 TH1F *j1_phi;
 TH1F *j1_m;
 TH1F *j1_pm;
+TH1F *j1_nj;
+TH1F *j1_co;
 ///////////////////////////
 //extra functions
 ///////////////////////////
