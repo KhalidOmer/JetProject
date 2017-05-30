@@ -105,12 +105,16 @@ if __name__ == "__main__":
 		        color = 'yellow'
 		    if l[0] <= .1:
 		        color = 'red'
-		    ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= 5*l[0])       
+		    ax.plot([x1,x2],[y1,y2],[z1,z2], color=color, linewidth= 5*l[0]) 
+		    ax.set_zlabel("z", fontsize = 16)      
 	a = []
 	b = []
 	plt.plot(a,b, label = 'E >= 0.8', color = 'blue')
 	plt.plot(a,b, label = 'E > 0.5', color = 'green')
 	plt.plot(a,b, label = 'E < 0.5', color = 'yellow')
 	plt.plot(a,b, label = 'E < 0.1', color = 'red')
-	plt.legend(loc = 2)
+	plt.xlabel("x", fontsize = 16)
+	plt.ylabel("y", fontsize = 16)
+	#plt.zlabel("z")
+	#plt.legend(loc = 2)
 	plt.show()

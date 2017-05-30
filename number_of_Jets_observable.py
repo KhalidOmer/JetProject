@@ -127,29 +127,37 @@ for i in range(1000):
     J    = partons(P_i)
     l.append(J)
 	
-n =[]	
+#here clustering with different values of R. 
+n =[]
+#en = []	
 for num, i in enumerate(l):	
 	Jets = jetcluster(-1,1,i)
-	n.append(len(Jets))
+	#n.append(len(Jets))
 	print(num, 'loop 1')
+	#for i in Jets:
+	#	en.append(i[0])
 
-
+#en1 = []
 k=[]
 for num, i in enumerate(l):
 	Jets = jetcluster(-1,.1,i)
 	k.append(len(Jets))
 	print(num, 'loop 2')
-	
+	#for i in Jets:
+	#	en1.append(i[0])
+
+en2 = []	
 m = []
 for num, i in enumerate(l):
 	Jets = jetcluster(-1,.05,i)
 	m.append(len(Jets))
 	print(num, 'loop 3')
-	
-with open('data2.pickle', 'wb') as f:
-	pickle.dump(n, f)
-	pickle.dump(k, f)
-	pickle.dump(m, f)
+	#for i in Jets:
+	#	en2.append(i[0])
+with open('data3.pickle', 'wb') as f:
+	pickle.dump(en, f)
+	pickle.dump(en1, f)
+	pickle.dump(en2, f)
 
 
 

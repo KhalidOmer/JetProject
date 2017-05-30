@@ -55,9 +55,11 @@ c = [list(i) for i in d]
 #now we plot those lines
 
 ax = plt.axes()
+ax.set_xlabel("x", fontsize = 14)
+ax.set_ylabel("y", fontsize = 14)
 ax.set_xlim(0, 10)
 ax.set_ylim(-4,4)
-line_segments = LineCollection(c, linewidths=([i[0][0] for i in l]), linestyle='solid')
+line_segments = LineCollection(c)#, #linewidths=([i[0][0] for i in l]), linestyle='solid', alpha = 1)
 ax.add_collection(line_segments)
 plt.show()
 
