@@ -22,11 +22,10 @@ for i in range(1000):
 mu = np.mean(l2)
 sigma = np.std(l2)
 
-plt.hist(l2, bins=200, color = 'm', alpha = .5, label = '1000 samples')
+plt.hist(l2, bins=200, color = 'b', alpha = .5)
 plt.title("pi calculation")
 plt.xlabel("The approximate value of pi")
 plt.ylabel("Frequency")
-plt.legend()
 plt.show()
 
 
