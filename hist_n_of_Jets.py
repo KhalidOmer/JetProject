@@ -6,8 +6,12 @@ n = pickle.load(f)
 k = pickle.load(f)
 m = pickle.load(f)
 
+print('R=1', n, sep='\n')
+print('R=.1', k, sep='\n')
+print('R=.05', m, sep='\n')
 
-plt.hist([n, k, m], bins=30, histtype='step',label=['R=1', 'R=.1', 'R=.05'], fill = False, cumulative = False, stacked = True, color=['blue', 'green', 'red'])
+
+plt.hist([n, k, m], bins=30, histtype='step',label=['R=1', 'R=.1', 'R=.05'], fill = False, cumulative = False, stacked = False, color=['blue', 'green', 'red'])
 plt.xlabel('Number of Jets')
 plt.ylabel('Frequency')
 #plt.text(50,25,'This the number of constituents in the Jet with highest energy', color ='red', fontsize=8, bbox = {'facecolor': 'white', 'pad':9}, verticalalignment='top', horizontalalignment='center')
