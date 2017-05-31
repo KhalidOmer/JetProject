@@ -15,6 +15,5 @@ plt.hist(l,bins=200,label = '1000 samples',color='b')
 #plt.title('The inverse transform method')
 plt.xlabel('The values of x')
 plt.ylabel('Frequency')
-plt.legend()
 plt.show()
 
