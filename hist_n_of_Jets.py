@@ -15,7 +15,7 @@ plt.hist([n, k, m], bins=30, histtype='step',label=['R=1', 'R=.1', 'R=.05'], fil
 plt.xlabel('Number of Jets')
 plt.ylabel('Frequency')
 #plt.text(50,25,'This the number of constituents in the Jet with highest energy', color ='red', fontsize=8, bbox = {'facecolor': 'white', 'pad':9}, verticalalignment='top', horizontalalignment='center')
-plt.text(600,1100,'p = -1', color = 'blue', bbox= {'facecolor': 'white', 'pad':10})
+plt.text(600,900,'p = -1', color = 'blue', bbox= {'facecolor': 'white', 'pad':10})
 plt.title('Number of Jets')
 plt.legend(loc='upper right')
 plt.show()
