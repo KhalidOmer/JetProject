@@ -1,5 +1,5 @@
 # Who am I? 
-	I am a set of excersices that are based on MontiCarlo tutorial method that is written by Dr. Samuel Meheen from CERN and implementations of the anti-kT jet algorithms as well as thier its observables.
+	I am a set of excersices that are based on MonteCarlo tutorial method that is written by Samuel Meehan and Fiona Pons from CERN and implementations of the anti-kT jet algorithms as well as thier its observables.
 # Who worked on me?
 	This is the work of Khalid (student), Dr. Jan Hazla (tutor at AIMS Rwanda) and Dr. Samuel (supervisor). 
 # General Notes
