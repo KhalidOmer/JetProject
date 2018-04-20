@@ -6,3 +6,6 @@ produced. However, in practice, we can not detect them. The quarks and gluons un
 showering process and then hadronize. In order to understand them, Monte Carlo simulations
 were used, including a simple toy simulation as well as Pythia simulation. In both cases we studied
 these simulations using jet algorithms.
+
+* This Repo. is sectioned into three, PythonToyModel, PythiaSimulationAnalysis and Gallery. 
+* The information of each section can be found with in the section. 
